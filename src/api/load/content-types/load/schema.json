@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "loads",
+  "info": {
+    "singularName": "load",
+    "pluralName": "loads",
+    "displayName": "Load"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Route": {
+      "type": "text"
+    },
+    "Distance": {
+      "type": "decimal"
+    },
+    "PricePerMile": {
+      "type": "decimal"
+    },
+    "Total": {
+      "type": "decimal"
+    },
+    "Available": {
+      "type": "boolean"
+    },
+    "driver": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::driver.driver",
+      "mappedBy": "load"
+    },
+    "truck": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::truck.truck",
+      "inversedBy": "load"
+    }
+  }
+}
