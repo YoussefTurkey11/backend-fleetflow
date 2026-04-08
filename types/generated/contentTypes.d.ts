@@ -430,97 +430,47 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiDriverDriver extends Struct.CollectionTypeSchema {
-  collectionName: 'drivers';
+export interface ApiTransactionTransaction extends Struct.CollectionTypeSchema {
+  collectionName: 'transactions';
   info: {
-    displayName: 'Driver';
-    pluralName: 'drivers';
-    singularName: 'driver';
+    displayName: 'Transaction';
+    pluralName: 'transactions';
+    singularName: 'transaction';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Available: Schema.Attribute.Boolean;
+    amount: Schema.Attribute.Decimal;
+    category: Schema.Attribute.Enumeration<
+      [
+        'Food & Dining',
+        'Rent / Housing',
+        'Transportation',
+        'Shopping',
+        'Bills & Utilities',
+        'Entertainment',
+        'Healthcare',
+        'Education',
+        'Travel',
+        'Subscriptions',
+        'Other',
+      ]
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    DriverDetails: Schema.Attribute.Text;
-    HireDate: Schema.Attribute.Date;
-    License: Schema.Attribute.String;
-    load: Schema.Attribute.Relation<'oneToOne', 'api::load.load'>;
+    date: Schema.Attribute.Date;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::driver.driver'
+      'api::transaction.transaction'
     > &
       Schema.Attribute.Private;
-    PhoneNumber: Schema.Attribute.String;
-    PricePerMile: Schema.Attribute.Decimal;
+    notes: Schema.Attribute.Blocks;
     publishedAt: Schema.Attribute.DateTime;
-    truck: Schema.Attribute.Relation<'oneToOne', 'api::truck.truck'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiLoadLoad extends Struct.CollectionTypeSchema {
-  collectionName: 'loads';
-  info: {
-    displayName: 'Load';
-    pluralName: 'loads';
-    singularName: 'load';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Available: Schema.Attribute.Boolean;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Delivery: Schema.Attribute.Text;
-    Distance: Schema.Attribute.Decimal;
-    driver: Schema.Attribute.Relation<'oneToOne', 'api::driver.driver'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::load.load'> &
-      Schema.Attribute.Private;
-    Origin: Schema.Attribute.Text;
-    Pickup: Schema.Attribute.Text;
-    PricePerMile: Schema.Attribute.Decimal;
-    publishedAt: Schema.Attribute.DateTime;
-    Total: Schema.Attribute.Decimal;
-    truck: Schema.Attribute.Relation<'oneToOne', 'api::truck.truck'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiTruckTruck extends Struct.CollectionTypeSchema {
-  collectionName: 'trucks';
-  info: {
-    displayName: 'Truck';
-    pluralName: 'trucks';
-    singularName: 'truck';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Available: Schema.Attribute.Boolean;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    driver: Schema.Attribute.Relation<'oneToOne', 'api::driver.driver'>;
-    FuelPerMile: Schema.Attribute.Decimal;
-    load: Schema.Attribute.Relation<'oneToOne', 'api::load.load'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::truck.truck'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    TotalMileage: Schema.Attribute.Integer;
+    transactionTitle: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['income', 'expense']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1038,9 +988,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::driver.driver': ApiDriverDriver;
-      'api::load.load': ApiLoadLoad;
-      'api::truck.truck': ApiTruckTruck;
+      'api::transaction.transaction': ApiTransactionTransaction;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

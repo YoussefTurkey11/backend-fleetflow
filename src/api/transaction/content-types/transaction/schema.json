@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transactions",
+  "info": {
+    "singularName": "transaction",
+    "pluralName": "transactions",
+    "displayName": "Transaction"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "transactionTitle": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "decimal"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "income",
+        "expense"
+      ]
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Food & Dining",
+        "Rent / Housing",
+        "Transportation",
+        "Shopping",
+        "Bills & Utilities",
+        "Entertainment",
+        "Healthcare",
+        "Education",
+        "Travel",
+        "Subscriptions",
+        "Other"
+      ]
+    },
+    "date": {
+      "type": "date"
+    },
+    "notes": {
+      "type": "blocks"
+    }
+  }
+}
